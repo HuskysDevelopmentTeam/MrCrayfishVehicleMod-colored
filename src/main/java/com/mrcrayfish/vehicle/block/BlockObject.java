@@ -11,6 +11,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
+import static com.mrcrayfish.vehicle.Reference.MOD_ID;
+
 /**
  * Author: MrCrayfish
  */
@@ -25,7 +27,7 @@ public class BlockObject extends Block
     {
         super(material, mapColor);
         this.setUnlocalizedName(id);
-        this.setRegistryName(id);
+        this.setRegistryName(MOD_ID, id);
         this.setCreativeTab(VehicleMod.CREATIVE_TAB);
     }
 

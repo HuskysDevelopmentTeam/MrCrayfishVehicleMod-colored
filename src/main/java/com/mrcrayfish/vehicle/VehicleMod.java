@@ -4,6 +4,7 @@ import com.mrcrayfish.vehicle.common.CommonEvents;
 import com.mrcrayfish.vehicle.entity.CustomDataSerializers;
 import com.mrcrayfish.vehicle.entity.EntityVehicle;
 import com.mrcrayfish.vehicle.entity.vehicle.*;
+import com.mrcrayfish.vehicle.init.GuiHandler;
 import com.mrcrayfish.vehicle.init.ModItems;
 import com.mrcrayfish.vehicle.init.RegistrationHandler;
 import com.mrcrayfish.vehicle.network.PacketHandler;
@@ -15,7 +16,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 /**
@@ -28,6 +31,9 @@ public class VehicleMod
     public static Proxy proxy;
 
     public int nextEntityId;
+
+    @Mod.Instance()
+    public static VehicleMod instance;
 
     public static final CreativeTabs CREATIVE_TAB = new CreativeTabs("tabVehicle")
     {
@@ -50,6 +56,12 @@ public class VehicleMod
         registerVehicles();
 
         proxy.preInit();
+    }
+
+    @Mod.EventHandler
+    public static void onInit(FMLInitializationEvent event)
+    {
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
     }
 
     private void registerVehicles()
